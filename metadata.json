@@ -1,5 +1,5 @@
 {
-  "name": "therek-dns",
+  "name": "therek-dnsmasq",
   "version": "0.1.0",
   "author": "therek",
   "summary": "DNSMasq server configuration",
