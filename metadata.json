@@ -1,0 +1,20 @@
+{
+  "name": "therek-dns",
+  "version": "0.1.0",
+  "author": "therek",
+  "summary": "DNSMasq server configuration",
+  "license": "Apache-2.0",
+  "source": "git@github.com:therek/puppet-dnsmasq.git",
+  "project_page": "https://github.com/therek/puppet-dnsmasq",
+  "issues_url": "https://github.com/therek/puppet-dnsmasq/issues",
+  "operatingsystem_support": [
+    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "16.04" ] }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=5.0.0 <6.0.0"
+    }
+  ],
+  "dependencies": []
+}

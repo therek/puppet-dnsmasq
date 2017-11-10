@@ -1,0 +1,50 @@
+# Configuration file for dnsmasq.
+#
+# Format is one option per line, legal options are the same
+# as the long options legal on the command line. See
+# "/usr/sbin/dnsmasq --help" or "man 8 dnsmasq" for details.
+
+domain-needed
+bogus-priv
+no-resolv
+no-hosts
+
+<%- if @listen_iface %>
+<%- if @listen_iface.kind_of?(Array) -%>
+<%- @listen_iface.each do |value| -%>
+interface=<%= value %>
+<%- end -%>
+<%- else -%>
+interface=<%= @listen_iface %>
+<%- end -%>
+<%- end -%>
+<%- if @listen_except_iface %>except-interface=<%= @listen_except_iface %><% end %>
+<%- if @listen_addr %>listen-address=<%= @listen_addr %><% end %>
+
+local=/<%= @internal_domain %>/
+addn-hosts=/etc/dnsmasq.<%= @internal_domain %>.zone
+domain=<%= @internal_domain %>
+
+<%- if @upstream.kind_of?(Array) -%>
+<%- @upstream.each do |value| -%>
+server=<%= value %>
+<%- end -%>
+<%- else -%>
+server=<%= @upstream %>
+<%- end -%>
+
+<%- if @dhcp_range.kind_of?(Array) -%>
+<%- @dhcp_range.each do |value| -%>
+dhcp-range=<%= value %>,<%= @dhcp_lease %>
+<%- end -%>
+<%- else -%>
+dhcp-range=<%= @dhcp_range %>,<%= @dhcp_lease %>
+<%- end -%>
+dhcp-option=option:router,<%= @dhcp_route %>
+dhcp-authoritative
+
+<%- if @debug_dns %>log-queries<% end %>
+<% if @debug_dhcp %>log-dhcp<% end %>
+
+# Include all files in a directory which end in .conf
+conf-dir=<%= @config_dir %>/,*.conf

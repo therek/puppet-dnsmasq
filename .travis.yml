@@ -1,0 +1,19 @@
+---
+language: ruby
+sudo: false
+bundler_args: "--path=${BUNDLE_PATH:-vendor/bundle}"
+cache: bundler
+script: bundle exec rake test
+before_install:
+ - rm -f Gemfile.lock
+matrix:
+  fast_finish: true
+  include:
+  - rvm: '2.2'
+    env: PUPPET_VERSION="~> 5.0"
+  - rvm: '2.3'
+    env: PUPPET_VERSION="~> 5.0"
+    bundler_args: "--without development --jobs=3 --retry=3 --path=${BUNDLE_PATH:-../vendor/bundle}"
+notifications:
+  slack:
+    secure: AzTpUXoZqInukPAfyR/1mJJwtnK8gCGFVm4YGt/Yvp1ZjCBNtJofVwKeTr4vOMOK4VD0c3lwKucyToUv7JvOhb6M+JWJRKgllA/tzKoRnpVJR26+X9re7YOeHju6B7npEEhfRXMzhB7HqQ/l4HBoo9EqFi8bRHoEzPRA8z1hTWvqDGm3kXGiRa1n+mVPOzmuDXK1+bXLjp6US+n1F+7fkjh/nEBVQwy54URpBOxWmS7xCxhXaI667+8qGUSQYBbmQ99wsApS/KQGBNZnKsk1eT8Ve5Qn6/jOI/jjR3RreNhKdJFSXPFqafUXkab2LJpUMzCICDV7/682Hc5+MvoDw55cTyXvAI4LMRKvGG2ueshI/mSh1qNX2iySpfzVndRlj6CMiMyfF4hLeYMOHpl5qyYwLdZEO9Pz1UqdG8rMG82NDwV3Ht8A2o5gBdrtKZTxMLY+p6EiAk/r15Ag8uGV2ZZSe5xA4cjvobAQRXXTE1kF2XV9kFNbXxarFsD0jwqcheg6fmJdLdjmdvkIG/CFtIz81nDtxI6lapVjSOcxfl/MPswS/ygNMp8RWBbz29kdKRALsBOAzDvnMVJoP0/FziQEVoEhRBKpwaIsy2WEAfhiWsKzmNyx0gp4Iym8SRiBeqdvn1+sc/3An+JSvUbNGsbT+8AIxBtkCATRIW5MAXU=
